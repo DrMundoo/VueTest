@@ -2,9 +2,68 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>07_事件处理</title>
 </head>
 <body>
-$END$
+
+<div id="example">
+    <h2>1. 绑定监听</h2>
+    <button @click="test1">test1</button>
+    <button @click="test2('DrMundo')">test2</button>
+    <button @click="test3">test3</button>
+    <button @click="test4(123, $event)">test4</button>
+
+    <!--
+        @click.stop 停止事件冒泡
+        @click.prevent 阻止事件默认行为
+    -->
+    <h2>2. 事件修饰符</h2>
+    <div style="width: 200px; height: 200px; background: red;" @click="test5">
+        <div style="width: 100px; height: 100px; background: blue;" @click.stop="test6"></div>
+    </div>
+
+    <a href=http://www.baidu.com" @click.prevent="test7">去百度</a>
+
+    <h2>3. 按键修饰符</h2>
+    <input type="text" @keyup.enter="test8">
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+    new Vue({
+        el: '#example',
+        data: {
+
+        },
+        methods: {
+            test1() {
+                alert(123)
+            },
+            test2(msg) {
+                alert(msg)
+            },
+            // 绑定时不指定方法参数，默认会传递$event
+            test3(event) {
+                alert(event.target.innerHTML)
+            },
+            test4(number, event) {
+                alert(number + ' --- ' + event.target.innerHTML)
+            },
+            test5() {
+                alert('out')
+            },
+            test6() {
+                alert('inner')
+            },
+            test7() {
+                alert('去百度')
+            },
+            test8(event) {
+                alert(event.target.value)
+            }
+        }
+    })
+</script>
+
 </body>
 </html>

@@ -2,9 +2,48 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>09_Vue实例_生命周期</title>
 </head>
 <body>
-$END$
+
+<div id="test">
+    <button @click="destroyVM">destroy vm</button>
+    <p v-show="isShow">DrMundo</p>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+    new Vue({
+        el: '#test',
+        data: {
+            isShow: true
+        },
+        beforeCreate() {
+            console.log('beforeCreate()')
+        },
+        created() {
+            console.log('created()')
+        },
+        // 初始化显示后立即调用（1次）
+        mounted() {
+            this.intervalId = setInterval(() => {
+                console.log('---');
+                this.isShow = ! this.isShow
+            }, 1000)
+        },
+        // 死亡之前调用一次
+        beforeDestroy() {
+            // 清除定时器
+            clearInterval(this.intervalId)
+        },
+        methods: {
+            destroyVM() {
+                this.$destroy()
+            }
+        }
+    })
+
+</script>
+
 </body>
 </html>

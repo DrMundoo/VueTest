@@ -2,9 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>12_指令</title>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
 </head>
 <body>
-$END$
+
+<div id="example">
+    <p ref="content">DrMundo</p>
+    <button @click="hint">提示</button>
+    <p v-cloak>{{msg}}</p>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+    new Vue({
+        el: '#example',
+        data: {
+            msg: 'ABC'
+        },
+        methods: {
+            hint() {
+                alert(this.$refs.content.textContent)
+            }
+        }
+    })
+</script>
+
 </body>
 </html>
